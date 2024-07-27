@@ -1,0 +1,33 @@
+stages:
+  - build
+  - test
+  - deploy
+
+variables:
+  PIP_EXTRA_INDEX_URL: 'https://pypi.python.org/simple'
+  PYTHON_VERSION: '3.8.0'
+
+build:
+  stage: build
+  script:
+    - apt-get update -qq
+    - apt-get install -y python3-pip
+    - pip3 install --upgrade pip
+    - pip3 install exifread
+  artifacts:
+    paths:
+      - main.py
+
+test:
+  stage: test
+  script:
+    - python3 -m unittest discover -s tests
+  dependencies:
+    - build
+
+deploy:
+  stage: deploy
+  script:
+    - echo "Deploying to production"
+  only:
+    - main
