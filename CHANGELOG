@@ -1,0 +1,9 @@
+# v1.0.0 (2024-07-28)
+
+* Improved release of the Shutter Counter script.
+* Supports Nikon D850, D810, and D800 camera models.
+* Can output the shutter count as an integer or a string.
+
+# v1.0.0 (2024-04-06)
+
+* Initial release of the Shutter Counter script.
