@@ -1,6 +1,6 @@
 # Python Shutter Counter
 
-![GitLab Release](https://img.shields.io/gitlab/v/release/thaikolja%2Fpython-shutter-counter) [![Python 3.6+](https://img.shields.io/badge/Python-3.6+-blue.svg)](https://www.python.org/downloads/) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![GitHub stars](https://img.shields.io/github/stars/shutter-counter/python-shutter-counter.svg)](https://github.com/shutter-counter/python-shutter-counter)
+![GitLab Release](https://img.shields.io/gitlab/v/release/thaikolja%2Fpython-shutter-counter) [![Python 3.6+](https://img.shields.io/badge/Python-3.6+-blue.svg)](https://www.python.org/downloads/) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) ![Gitlab Pipeline Status](https://img.shields.io/gitlab/pipeline-status/thaikolja%2Fpython-shutter-counter)
 
 A Python script to read the EXIF data from an image file and **extract the shutter count** of a DSLR camera.
 
