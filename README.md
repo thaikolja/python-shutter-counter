@@ -1,55 +1,81 @@
-# Shutter Counter
+# Python Shutter Counter
 
-This Python script reads the EXIF data from an image file and extracts the shutter count. It currently supports the **Nikon D850**, **Nikon D810**, and **Nikon D800** camera models since I could only test the script on these models.
+![GitLab Release](https://img.shields.io/gitlab/v/release/thaikolja%2Fpython-shutter-counter) [![Python 3.6+](https://img.shields.io/badge/Python-3.6+-blue.svg)](https://www.python.org/downloads/) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![GitHub stars](https://img.shields.io/github/stars/shutter-counter/python-shutter-counter.svg)](https://github.com/shutter-counter/python-shutter-counter)
 
-## Requirements
+A Python script to read the EXIF data from an image file and **extract the shutter count** of a DSLR camera.
 
-- Python 3
-- exifread
+## Description
 
-## Installation
+This script is designed to work with Nikon **D850**, **D810**, and **D800** camera models. Other models can be added easily in the main class. The script uses the `exifread` library to parse the EXIF data from the image file and extract the shutter count. Check out the [exifread documentation](https://pypi.org/project/ExifRead/) for more information on how EXIF data is parsed.
 
-1. Ensure you have Python 3 installed. You can download it from the [official website](https://www.python.org/downloads/).
-2. Install the required Python package `exifread` using pip:
+## Features
+
+* Extracts the shutter count from the EXIF data of an image file
+* Supports Nikon **D850**, **D810**, and **D800** camera models
+* Can output the shutter count as an integer or a string
+* Provides error handling for invalid image files, unsupported camera models, and other issues
+
+## Installation Instructions
+
+1. **Ensure you have Python 3 installed.** You can download it from the [official Python website](https://www.python.org/downloads/)
+2. **Install the required `exifread`** library using the  `pip` command. [Official documentation](https://pip.pypa.io/en/stable/user_guide/)
 
 ```bash
 pip install exifread
 ```
 
-## Usage
+Clone or download the Shutter Counter repository to your local machine.
 
-To use the script, you need to provide the path to the image file as a command-line argument. As a second argument, you can optionally specify the output type (`int` or `str`). If not provided, the default output type is `str`.
-
-```bash
-python main.py <image_path> (int|str)
-```
-
-For example:
+### Download via Git
 
 ```bash
-python main.py /path/to/image.jpg str
+git clone https://gitlab.com/thaikolja/python-shutter-counter.git
 ```
-This will print the shutter count as an integer:
 
->  78684
+### Download as a .zip File
+
+Click [here to download the latest version](https://gitlab.com/thaikolja/python-shutter-counter/-/archive/main/python-shutter-counter-main.zip).
+
+## Usage Examples
+
+To use the script, simply run it from the command line and provide the path to the image file as an argument:
 
 ```bash
 python main.py /path/to/image.jpg
 ```
 
-Using none will default to `str`:
+This will output the shutter count as a string:
 
-> Shutter count: 78684
+```
+Shutter count: 78684
+```
 
+You can also specify the output type as an integer by adding the `int` argument:
 
-## Author
+```bash
+python main.py /path/to/image.jpg int
+```
 
-**Kolja Nolte** <[kolja.nolte@gmail.com](mailto:kolja.nolte@gmail.com)>
+This will output the shutter count as an integer:
 
-## Contributing
+```
+78684
+```
 
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+Check out the [Python documentation](https://docs.python.org/3/tutorial/interpreter.html) for more information on running Python scripts from the command line.
+
+## Contribution Guidelines
+
+Pull requests are welcome! If you'd like to contribute to the project, please fork the repository and submit a pull request with your changes. Make sure to include a clear description of your changes and any relevant testing or documentation updates. Check out [this guide](https://nira.com/gitlab-pull-request/) for more information on pull requests.
+
+## Testing Instructions
+
+To test the script, simply run it with a valid image file and verify that the output is correct. You can also test the script with invalid image files or unsupported camera models to ensure that it handles errors correctly.
 
 ## License
 
-[MIT](https://choosealicense.com/licenses/mit/)
+This project is licensed under the MIT License. For details, see the [LICENSE file](LICENSE). For more information on the MIT License, check out the [Open Source Initiative](https://opensource.org/licenses/MIT).
+
+## Author
+
+* **Kolja Nolte** [<kolja.nolte@gmail.com>](mailto:kolja.nolte@gmail.com)
