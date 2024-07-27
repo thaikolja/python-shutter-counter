@@ -21,7 +21,7 @@ This script is designed to work with Nikon **D850**, **D810**, and **D800** came
 2. **Install the required `exifread`** library using the  `pip` command. [Official documentation](https://pip.pypa.io/en/stable/user_guide/)
 
 ```bash
-pip install exifread
+$ pip install exifread
 ```
 
 Clone or download the Shutter Counter repository to your local machine.
@@ -29,7 +29,7 @@ Clone or download the Shutter Counter repository to your local machine.
 ### Download via Git
 
 ```bash
-git clone https://gitlab.com/thaikolja/python-shutter-counter.git
+$ git clone https://gitlab.com/thaikolja/python-shutter-counter.git
 ```
 
 ### Download as a .zip File
@@ -41,7 +41,7 @@ Click [here to download the latest version](https://gitlab.com/thaikolja/python-
 To use the script, simply run it from the command line and provide the path to the image file as an argument:
 
 ```bash
-python main.py /path/to/image.jpg
+$ python main.py /path/to/image.jpg
 ```
 
 This will output the shutter count as a string:
@@ -53,7 +53,7 @@ Shutter count: 78684
 You can also specify the output type as an integer by adding the `int` argument:
 
 ```bash
-python main.py /path/to/image.jpg int
+$ python main.py /path/to/image.jpg int
 ```
 
 This will output the shutter count as an integer:
