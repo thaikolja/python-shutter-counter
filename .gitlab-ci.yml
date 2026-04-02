@@ -1,37 +1,53 @@
 stages:
-  - build
+  - lint
   - test
-  - deploy
+  - build
 
 variables:
-  PIP_EXTRA_INDEX_URL: 'https://pypi.python.org/simple'
-  PYTHON_VERSION: '3.8.0'
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+  PYTHON_VERSION: "3.10"
 
-before_script:
-  - apt update -qq
-  - apt install -y python3-venv
+cache:
+  key: "${CI_COMMIT_REF_SLUG}"
+  paths:
+    - .cache/pip
+    - venv/
+
+.before_script_template: &before_script
   - python3 -m venv venv
-  - venv/bin/python -m pip install --upgrade pip
-  - venv/bin/pip install exifread
+  - venv/bin/pip install --upgrade pip
+  - venv/bin/pip install -e ".[dev]"
 
-build:
-  stage: build
+lint:
+  stage: lint
+  image: python:${PYTHON_VERSION}-slim
+  before_script:
+    - *before_script
   script:
-    - echo "Building"
-  artifacts:
-    paths:
-      - main.py
+    - venv/bin/ruff check shutter_counter/ tests/
+    - venv/bin/ruff format --check shutter_counter/ tests/
 
 test:
   stage: test
+  image: python:${PYTHON_VERSION}-slim
+  before_script:
+    - *before_script
   script:
-    - venv/bin/python -m unittest discover -s .
-  dependencies:
-    - build
+    - venv/bin/python -m pytest tests/ -v --tb=short
+  coverage: '/TOTAL.*\s+(\d+%)/'
 
-deploy:
-  stage: deploy
+build:
+  stage: build
+  image: python:${PYTHON_VERSION}-slim
+  before_script:
+    - *before_script
   script:
-    - echo "Deploying to production"
-  only:
-    - main
+    - venv/bin/pip install build
+    - venv/bin/python -m build
+  artifacts:
+    paths:
+      - dist/
+    expire_in: 1 week
+  rules:
+    - if: $CI_COMMIT_TAG
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH

@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "shutter-counter"
+version = "1.2.0"
+description = "Extract shutter count from Nikon camera images"
+readme = "changelog.md"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+dependencies = [
+    "exifread>=3.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "ruff>=0.1.0",
+]
+
+[project.scripts]
+shutter-counter = "shutter_counter.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["shutter_counter*"]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "SIM"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
