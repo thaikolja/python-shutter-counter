@@ -1,81 +1,107 @@
-# Python Shutter Counter
+# Shutter Counter
 
-![GitLab Release](https://img.shields.io/gitlab/v/release/thaikolja%2Fpython-shutter-counter) [![Python 3.6+](https://img.shields.io/badge/Python-3.6+-blue.svg)](https://www.python.org/downloads/) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) ![Gitlab Pipeline Status](https://img.shields.io/gitlab/pipeline-status/thaikolja%2Fpython-shutter-counter)
+[![Pipeline Status](https://gitlab.com/thaikolja/python-shutter-counter/badges/main/pipeline.svg)](https://gitlab.com/thaikolja/python-shutter-counter/commits/main) [![Coverage Status](https://gitlab.com/thaikolja/python-shutter-counter/badges/main/coverage.svg)](https://gitlab.com/thaikolja/python-shutter-counter/commits/main) [![PyPI version](https://badge.fury.io/py/shutter-counter.svg)](https://badge.fury.io/py/shutter-counter) [![Python Version](https://img.shields.io/pypi/pyversions/shutter-counter.svg)](https://pypi.org/project/shutter-counter/)
 
-A Python script to read the EXIF data from an image file and **extract the shutter count** of a DSLR camera.
-
-## Description
-
-This script is designed to work with Nikon **D850**, **D810**, and **D800** camera models. Other models can be added easily in the main class. The script uses the `exifread` library to parse the EXIF data from the image file and extract the shutter count. Check out the [exifread documentation](https://pypi.org/project/ExifRead/) for more information on how EXIF data is parsed.
+Extract the shutter actuation count from Nikon camera images using EXIF metadata.
 
 ## Features
 
-* Extracts the shutter count from the EXIF data of an image file
-* Supports Nikon **D850**, **D810**, and **D800** camera models
-* Can output the shutter count as an integer or a string
-* Provides error handling for invalid image files, unsupported camera models, and other issues
+- Supports most Nikon DSLR models (D1–D6 series, D8xx, D7xx, D5xx, D3xxx, and Z-series)
+- Reads shutter count from MakerNote EXIF tags
+- Clean numeric output for scripting
+- Thousand separators in human-readable output
+- Works with JPEG and NEF files
 
-## Installation Instructions
+## Installation
 
-1. **Ensure you have Python 3 installed.** You can download it from the [official Python website](https://www.python.org/downloads/)
-2. **Install the required `exifread`** library using the  `pip` command. [Official documentation](https://pip.pypa.io/en/stable/user_guide/)
-
-```bash
-$ pip install exifread
-```
-
-Clone or download the Shutter Counter repository to your local machine.
-
-### Download via Git
+### As Global Binary
 
 ```bash
-$ git clone https://gitlab.com/thaikolja/python-shutter-counter.git
+pipx install shutter-counter
 ```
 
-### Download as a .zip File
-
-Click [here to download the latest version](https://gitlab.com/thaikolja/python-shutter-counter/-/archive/main/python-shutter-counter-main.zip).
-
-## Usage Examples
-
-To use the script, simply run it from the command line and provide the path to the image file as an argument:
+### From Git Source
 
 ```bash
-$ python main.py /path/to/image.jpg
+# pip
+pip install -e .
 ```
 
-This will output the shutter count as a string:
-
-```
-Shutter count: 78684
-```
-
-You can also specify the output type as an integer by adding the `int` argument:
+### Development
 
 ```bash
-$ python main.py /path/to/image.jpg int
+pip install -e ".[dev]"
 ```
 
-This will output the shutter count as an integer:
+## Usage
 
+### Command Line
+
+```bash
+# Basic usage (positional argument)
+python main.py image.jpg
+
+# Using explicit flag
+python main.py --input image.jpg
+
+# Clean output (number only, with thousand separators)
+python main.py image.jpg --clean
+
+# Verbose mode
+python main.py image.jpg -v
+
+# Help
+python main.py --help
 ```
-78684
+
+### Example Output
+
+```bash
+$ python main.py image.jpg
+Shutter count for NIKON D850 is 82,222
+
+$ python main.py image.jpg --clean
+82,222
 ```
 
-Check out the [Python documentation](https://docs.python.org/3/tutorial/interpreter.html) for more information on running Python scripts from the command line.
+### Python API
 
-## Contribution Guidelines
+```python
+from shutter_counter.counter import ShutterCounter
 
-Pull requests are welcome! If you'd like to contribute to the project, please fork the repository and submit a pull request with your changes. Make sure to include a clear description of your changes and any relevant testing or documentation updates. Check out [this guide](https://nira.com/gitlab-pull-request/) for more information on pull requests.
+counter = ShutterCounter("image.jpg")
+result = counter.get_shutter_count()
 
-## Testing Instructions
+print(f"Camera: {result.camera_make} {result.camera_model}")
+print(f"Shutter count: {result.shutter_count:,}")
+```
 
-To test the script, simply run it with a valid image file and verify that the output is correct. You can also test the script with invalid image files or unsupported camera models to ensure that it handles errors correctly.
+## Supported Cameras
+
+### Newer Models
+
+- NIKON D6, D850, D780, D500, D7500
+- NIKON Z7, Z6, Z5, Z6II, Z7II
+
+### Older Models
+
+- NIKON D810, D800, Df, D610, D750
+- NIKON D700, D300S, D300, D200, D100
+- NIKON D90, D70s, D70, D60, D50, D40x, D40
+- NIKON D1X, D1H, D1, D2Xs, D2X, D2Hs, D2H
+- NIKON D3X, D3S, D3, D4S, D4, D5, D3500
+
+## Requirements
+
+- Python 3.10+
+- `exifread >= 3.0.0`
+
+## Testing
+
+```bash
+pytest tests/ -v
+```
 
 ## License
 
-This project is licensed under the MIT License. For details, see the [LICENSE file](LICENSE). For more information on the MIT License, check out the [Open Source Initiative](https://opensource.org/licenses/MIT).
-
-## Author
-
-* **Kolja Nolte** [<kolja.nolte@gmail.com>](mailto:kolja.nolte@gmail.com)
+MIT License - see LICENSE file for details.
